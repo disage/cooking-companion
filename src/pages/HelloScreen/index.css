@@ -1,0 +1,34 @@
+.helloScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+.welcomeTitle {
+    padding: 50px 0;
+    text-align: center;
+}
+.imagesContainer {
+    display: flex;
+}
+.helloScreenText {
+    background: #F8F4ED;
+    border-radius: 50px 50px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 460px;
+    padding-top: 50px;
+}
+.description{
+    margin: 0;
+    padding: 20px;
+}
+.loginText {
+    background: #332D46;
+    color: #FFFFFF;
+    font-size: 24px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: underline;
+}
