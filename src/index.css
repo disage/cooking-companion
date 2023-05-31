@@ -1,37 +1,55 @@
 @font-face {
   font-family: 'Tamil MN';
   src: url('./fonts/TamilMN-01.ttf');
-  /* Replace with the path to your font file */
 }
 
 @font-face {
   font-family: 'Tamil MN Bold';
   src: url('./fonts/TamilMN-Bold-02.ttf');
-  /* Replace with the path to your font file */
 }
 
 * {
   font-family: 'Tamil MN', sans-serif;
+color: #332D46;
 }
 
 body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  margin: 0 auto;
+  max-width: 700px;
 }
 
 h2 {
-  color: #332D46;
   font-size: 36px;
   margin: 0;
 }
 
+h3 {
+  font-size: 28px;
+  margin: 0;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: normal;
+}
+
 p {
-  color: #332D46;
   font-size: 24px;
 }
 
+input {
+  background: #FFFFFF;
+  border-radius: 5px;
+  border: 1px solid #E3E3E3;
+  color: #535353;
+  font-size: 16px;
+  padding: 8px;
+  display: flex;
+}
+
 .page {
-  padding: 30px 20px;
   min-height: 100vh;
+  padding: 30px 20px;
 }

@@ -36,15 +36,10 @@
     font-size: 20px;
     margin-bottom: 20px;
 }
-.loginFormField input {
-    background: #FFFFFF;
-    border-radius: 5px;
-    border: 1px solid #E3E3E3;
-    color: #535353;
-    font-size: 16px;
-    padding: 8px;
-}
 .loginActions {
     display: flex;
     justify-content: space-between;
+}
+.googleIcon {
+    cursor: pointer;
 }
