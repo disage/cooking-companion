@@ -28,12 +28,14 @@ const Login = () => {
         e.preventDefault();
         await signOut(auth);
         localStorage.removeItem('idToken');
+        localStorage.removeItem('username');
         localStorage.removeItem('uid')
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
             .then(async (res) => {
                 const idToken = await res.user.getIdToken();
                 localStorage.setItem('idToken', idToken);
+                localStorage.setItem('username', res.user.displayName);
                 localStorage.setItem('uid', res.user.uid);
                 navigate('/home');
             })

@@ -8,6 +8,7 @@ import Protected from "./Protected";
 
 const App = () => {
   const [isLoggedIn, setisLoggedIn] = useState(localStorage.getItem('uid'));
+
   useEffect(() => {
     const handleStorageChange = (event) => {
       if (event.key === 'uid') {
@@ -19,6 +20,7 @@ const App = () => {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
+
   return (
     <BrowserRouter>
       <div>

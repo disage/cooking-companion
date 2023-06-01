@@ -37,7 +37,7 @@ const Home = () => {
         setIsDropdownOpen(false);
     };
     const handleSetSuggesedDish = (value) => {
-        setSuggesedDish(value)
+        if (value) setSuggesedDish(value)
     };
     const addProductItem = async (e) => {
         e.preventDefault();
