@@ -1,4 +1,4 @@
-const apiKey = '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';
+const apiKey = process.env.REACT_APP_API_KEY;
 const endpoint = 'https://api.openai.com/v1/chat/completions';
 
 export const generateChatMessage = async (prompt) => {
