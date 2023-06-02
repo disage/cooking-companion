@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import HelloScreen from "./pages/HelloScreen";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Products from "./pages/Products";
 import Protected from "./Protected";
 
 const App = () => {
@@ -31,6 +32,13 @@ const App = () => {
             element={
               <Protected isLoggedIn={isLoggedIn}>
                 <Home />
+              </Protected>
+            }
+          />
+          <Route path='/products'
+            element={
+              <Protected isLoggedIn={isLoggedIn}>
+                <Products />
               </Protected>
             }
           />

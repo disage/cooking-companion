@@ -1,8 +1,12 @@
 .toolbar {
     display: flex;
-    justify-content: space-between;
     margin-top: 30px;
 }
+
+.toolbarAction {
+    cursor: pointer;
+}
+
 .toolbarItem {
     background: #F8F4ED;
     border-radius: 10px;
@@ -11,7 +15,20 @@
     display: flex;
     align-items: center;
 }
+
 .personIcon {
     margin-left: 5px;
+    margin-right: 20px;
+}
+
+.flexSpaceBetween {
+    justify-content: space-between;
+}
+
+.flexStart {
+    justify-content: start;
+}
+
+.flexStart .toolbarItem {
     margin-right: 20px;
 }

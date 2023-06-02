@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { Link } from 'react-router-dom';
 
 import {
     addDoc,
@@ -27,7 +28,7 @@ const Home = () => {
     const [productAmount, setProductAmount] = useState('');
     const [productType, setProductType] = useState('Kg');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [userProducts, setUserProducts] = useState([]);
+    const [userProducts, setUserProducts] = useState(undefined);
     const [userDataId, setUserDataId] = useState('');
     const [suggesedDish, setSuggesedDish] = useState(undefined);
 
@@ -43,15 +44,7 @@ const Home = () => {
         e.preventDefault();
         try {
             if (localStorage.uid) {
-                if (userProducts.products && userProducts.products.length > 0) {
-                    await updateDoc(doc(db, collectionName, userDataId), {
-                        products: [...userProducts.products, {
-                            name: productName,
-                            amount: productAmount,
-                            type: productType
-                        }]
-                    });
-                } else {
+                if (!userProducts) {
                     await addDoc(collection(db, collectionName), {
                         uid: localStorage.uid,
                         products: [{
@@ -60,7 +53,15 @@ const Home = () => {
                             type: productType
                         }]
                     })
-                };
+                } else {
+                    await updateDoc(doc(db, collectionName, userDataId), {
+                        products: [...userProducts.products, {
+                            name: productName,
+                            amount: productAmount,
+                            type: productType
+                        }]
+                    });
+                }
                 if (notificationRef.current) {
                     notificationRef.current.handlerShowNotification();
                 }
@@ -96,9 +97,9 @@ const Home = () => {
             if (querySnapshot.docs[0]) {
                 handleSetUserDataId(querySnapshot.docs[0].id)
                 handleSetUserProducts(querySnapshot.docs[0].data())
-                const productNames = querySnapshot.docs[0].data().products
+                const productNames = querySnapshot.docs[0].data().products ? querySnapshot.docs[0].data().products
                     .map(product => `${product.name} ${product.amount} ${product.type}`)
-                    .join(', ');
+                    .join(', ') : [];
                 const prompt = `write 1 dish wich i can cook on ${mealTime} for 2 person from this products - ${productNames}. Write answer in json like {name: 'Avocado Toast', ingredients:'Bread, Avocado ...', instructions: 'Take avocado and bread...'}. And use maximum 3700 characters`
                 const fetchChatGPTAnswer = async () => {
                     await generateChatMessage(prompt)
@@ -165,7 +166,7 @@ const Home = () => {
                         </div>
                     </label>
                     <Button type="submit" text="Add" />
-                    <Button type="button" text="See my products" btnStyle="secondary" />
+                    <Link to="/products">See my products</Link>
                 </form>
             </div>
         </div>

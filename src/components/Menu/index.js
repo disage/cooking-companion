@@ -10,9 +10,10 @@ const Menu = ({ isOpen, onClose }) => {
     const navigate = useNavigate();
 
     const navItems = [
-        { id: 1, title: 'My Products', link: '/products' },
-        { id: 2, title: 'Cook custom dish', link: '/generateCustomDish' },
-        { id: 3, title: 'Cook dish from my products', link: '/generateDish' },
+        { id: 1, title: 'Home', link: '/home' },
+        { id: 2, title: 'My Products', link: '/products' },
+        { id: 3, title: 'Cook custom dish', link: '/generateCustomDish' },
+        { id: 4, title: 'Cook dish from my products', link: '/generateDish' },
     ];
 
     const logout = () => {

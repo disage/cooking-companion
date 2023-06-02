@@ -1,4 +1,4 @@
-const apiKey = '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';
+const apiKey = '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';
 const endpoint = 'https://api.openai.com/v1/chat/completions';
 
 export const generateChatMessage = async (prompt) => {
@@ -28,7 +28,7 @@ export const generateChatMessage = async (prompt) => {
         const chatMessage = data.choices[0].message.content;
         return chatMessage;
     } catch (error) {
-        console.error('Error:', error);
+        console.error(error);
         return null;
     }
 }

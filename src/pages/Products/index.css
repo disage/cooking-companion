@@ -1,0 +1,27 @@
+.productItem {
+    align-items: center;
+    background: #F8F4ED;
+    border-radius: 10px;
+    display: flex;
+    font-size: 20px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.productItem b {
+    margin: 0 20px;
+}
+
+.productsList {
+    padding: 0;
+    list-style: none;
+}
+
+.deleteIcon {
+    cursor: pointer;
+}
+
+.editIcon {
+    cursor: pointer;
+}

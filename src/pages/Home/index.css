@@ -32,8 +32,16 @@
     margin: 20px auto 0 auto;
 }
 
-.addProductForm .secondaryBtn {
-    margin: auto;
+.addProductForm a {
+    border-radius: 8px;
+    border: none;
+    color: #535353;
+    cursor: pointer;
+    display: flex;
+    font-size: 18px;
+    padding: 10px 0;
+    text-decoration: underline;
+    justify-content: center;
 }
 
 .addProductField {
