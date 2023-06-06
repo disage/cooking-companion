@@ -5,6 +5,7 @@
     text-align: center;
     top: 0;
     width: 100%;
+    z-index: 9999;
 }
 
 .notification p {

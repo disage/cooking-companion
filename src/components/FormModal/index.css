@@ -19,45 +19,6 @@
     width: 100%;
 }
 
-.modalContent h3 {
-    text-align: center;
-}
-
-.menu {
-    background-color: #F8F4ED;
-    border-radius: 10px;
-    margin-top: 20px;
-    padding: 50px 20px;
-}
-
-.menuList {
-    list-style: none;
-}
-
-.menuList svg {
-    margin-right: 10px;
-}
-
-.menuList li {
-    font-size: 24px;
-    margin-bottom: 40px;
-}
-
-.menuList a {
-    text-decoration: none;
-}
-
-.menuList a:hover {
-    text-decoration: underline;
-}
-
-.logoutBtn {
-    cursor: pointer;
-}
-.logoutBtn:hover {
-    text-decoration: underline;
-}
-
 .closeMenuIcon {
     cursor: pointer;
     display: flex;

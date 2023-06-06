@@ -9,68 +9,83 @@ import {
     where
 } from "firebase/firestore";
 
-import { db, collectionName } from "../../firebase"
-import Navbar from "../../components/Navbar"
-import Toolbar from "../../components/Toolbar";
-import Notification from "../../components/Notification";
 import './index.css'
+import { db, collectionName } from "../../firebase"
+import FormModal from "../../components/FormModal";
+import Navbar from "../../components/Navbar"
+import Notification from "../../components/Notification";
+import Toolbar from "../../components/Toolbar";
 
 const Products = () => {
     const notificationRef = useRef(null);
 
+    const [seletedProductIndex, setSelectedProductIndex] = useState(undefined);
+    const [formActionType, setFormActionType] = useState('add');
     const [userDataId, setUserDataId] = useState('');
-    const [userProducts, setUserProducts] = useState([]);
+    const [userProducts, setUserProducts] = useState({});
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleSetUserProducts = (value) => {
-        setUserProducts(value);
+    const openModal = () => {
+        setIsModalOpen(true);
     };
-    const handleSetUserDataId = (value) => {
-        setUserDataId(value);
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
+    const addProduct = () => {
+        setFormActionType('add')
+        openModal()
+    }
     const removeAllProducts = async () => {
         try {
             await updateDoc(doc(db, collectionName, userDataId), { products: [] });
-            if (notificationRef.current) {
-                notificationRef.current.handlerShowNotification();
-            }
+            setFormActionType('delete')
+            showNotification()
         } catch (error) {
             console.error(error);
         }
     }
     const deleteProduct = async (value) => {
         try {
-            const products = userProducts.filter((item, index) => index !== value);
+            const products = userProducts.products.filter((item, index) => index !== value);
             await updateDoc(doc(db, collectionName, userDataId), { products });
-            if (notificationRef.current) {
-                notificationRef.current.handlerShowNotification();
-            }
+            setFormActionType('delete')
+            showNotification()
         } catch (error) {
             console.error(error);
         }
     }
-    const editProduct = (value) => {
-        console.log(value)
+    const editProduct = (index) => {
+        setSelectedProductIndex(index)
+        setFormActionType('edit')
+        openModal()
+    }
+    const showNotification = () => {
+        if (formActionType === 'edit') closeModal()
+        if (notificationRef.current) {
+            notificationRef.current.handlerShowNotification();
+        }
     }
 
     useEffect(() => {
         const q = query(collection(db, collectionName), where('uid', '==', localStorage.uid));
         const unsub = onSnapshot(q, (querySnapshot) => {
             if (querySnapshot.docs[0]) {
-                handleSetUserProducts(querySnapshot.docs[0].data().products)
-                handleSetUserDataId(querySnapshot.docs[0].id)
+                setUserProducts(querySnapshot.docs[0].data())
+                setUserDataId(querySnapshot.docs[0].id)
             }
         });
         return () => unsub();
     }, []);
+
     return (
         <div className='page'>
             <Navbar />
-            <Toolbar options={['add', 'clear']} onClear={removeAllProducts} />
-            <Notification ref={notificationRef} message="Product deleted !" />
+            <Toolbar options={['add', 'clear']} onAdd={addProduct} onClear={removeAllProducts} />
+            <Notification ref={notificationRef} message={formActionType === 'add' ? 'Product added !' : formActionType === 'delete' ? 'Product deleted !' : 'Product edited !'} />
             <h4>My Products:</h4>
             <ul className="productsList">
-                {userProducts.map((item, index) => (
-                    <li className='productItem' key={item.name}>
+                {userProducts.products && userProducts.products.map((item, index) => (
+                    <li className='productItem' key={index}>
                         <div><svg className='deleteIcon' onClick={() => deleteProduct(index)} width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.50006 11V16.5556" stroke="#332D46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M13.4999 11V16.5556" stroke="#332D46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -86,6 +101,7 @@ const Products = () => {
                     </li>
                 ))}
             </ul>
+            <FormModal isOpen={isModalOpen} onClose={closeModal} userDataId={userDataId} userProducts={userProducts} notificationRef={notificationRef} actionType={formActionType} seletedProductIndex={seletedProductIndex} onFormSubmit={showNotification} />
         </div>
     );
 };

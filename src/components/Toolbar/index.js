@@ -3,7 +3,7 @@ import React from "react";
 import './index.css'
 import useTime from '../../helpers/timeUtils'
 
-const Toolbar = ({ options, onClear}) => {
+const Toolbar = ({ options, onAdd, onClear }) => {
     const { currentTime, mealTime } = useTime();
 
     return (
@@ -22,7 +22,7 @@ const Toolbar = ({ options, onClear}) => {
                     </svg>
                 </div>
             }
-            {options.includes('add') && <div className="toolbarItem toolbarAction">Add</div>}
+            {options.includes('add') && <div className="toolbarItem toolbarAction" onClick={onAdd}>Add</div>}
             {options.includes('clear') && <div className="toolbarItem toolbarAction" onClick={onClear}>Clear All</div>}
         </div>
     );

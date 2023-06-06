@@ -1,20 +1,21 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
     GoogleAuthProvider,
     signInWithPopup,
     signOut,
 } from "firebase/auth";
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 import './index.css';
 import Button from '../../components/Button';
 import { auth } from "../../firebase";
 
 const Login = () => {
+    const navigate = useNavigate();
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const navigate = useNavigate();
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -39,8 +40,8 @@ const Login = () => {
                 localStorage.setItem('uid', res.user.uid);
                 navigate('/home');
             })
-            .catch((err) => {
-                console.log("signInWithGoogle", err);
+            .catch((error) => {
+                console.log("signInWithGoogle", error);
             });
     };
 
