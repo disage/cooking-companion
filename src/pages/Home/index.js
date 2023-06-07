@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import {
     collection,
@@ -19,14 +20,16 @@ import useTime from '../../helpers/timeUtils'
 
 const Home = () => {
     const notificationRef = useRef(null);
+    const navigate = useNavigate();
     const { mealTime } = useTime();
+
 
     const [userDataId, setUserDataId] = useState('');
     const [userProducts, setUserProducts] = useState(undefined);
     const [suggesedDish, setSuggesedDish] = useState(undefined);
 
     const handleSetSuggesedDish = (value) => {
-        if (value) setSuggesedDish(value)
+        if (value) setSuggesedDish(value);
     };
     const handleSetUserProducts = (value) => {
         setUserProducts(value);
@@ -35,10 +38,10 @@ const Home = () => {
         setUserDataId(value);
     };
     const redirectToSuggesedDish = () => {
-        console.log('redirectToSuggesedDish')
+        navigate('/generateDish', { state: {generatedDish: suggesedDish} });
     }
     const regenerateSuggesedDish = () => {
-        console.log('regenerateSuggesedDish')
+        console.log('regenerateSuggesedDish');
     }
     const showNotification = () => {
         if (notificationRef.current) {

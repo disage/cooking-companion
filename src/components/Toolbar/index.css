@@ -8,12 +8,17 @@
 }
 
 .toolbarItem {
+    align-items: center;
     background: #F8F4ED;
     border-radius: 10px;
-    padding: 20px;
-    font-size: 20px;
     display: flex;
-    align-items: center;
+    font-size: 20px;
+    padding: 20px;
+}
+
+.shareAction {
+    background: #E68966;
+    color: #FFFFFF;
 }
 
 .personIcon {

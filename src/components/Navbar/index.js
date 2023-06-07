@@ -17,15 +17,11 @@ const Navbar = () => {
         setIsModalOpen(false);
     };
 
-    const handleSetAvatarUrl = (value) => {
-        setAvatarUrl(value)
-    }
-
     useEffect(() => {
         const getUserData = () => {
             const unsubscribe = auth.onAuthStateChanged((user) => {
                 if (user) {
-                    handleSetAvatarUrl(user.providerData[0].photoURL)
+                    setAvatarUrl(user.providerData[0].photoURL)
                 }
             });
             setTimeout(() => {

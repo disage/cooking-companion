@@ -71,8 +71,10 @@ const Form = ({ actionType, onSubmit, seletedProductIndex, userDataId, userProdu
         if (actionType === 'edit') {
             const selectedProductName = userProducts?.products?.[seletedProductIndex]?.name || ''
             const selectedProductAmount = userProducts?.products?.[seletedProductIndex]?.amount || ''
+            const selectedProductType = userProducts?.products?.[seletedProductIndex]?.type || 'Kg'
             setProductName(selectedProductName)
             setProductAmount(selectedProductAmount)
+            setProductType(selectedProductType)
         }
     }, [actionType, seletedProductIndex, userProducts?.products]);
 

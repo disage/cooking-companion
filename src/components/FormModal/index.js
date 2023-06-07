@@ -9,7 +9,7 @@ const FormModal = ({ actionType, isOpen, onClose, onFormSubmit, seletedProductIn
             {isOpen && (
                 <div className="modalOverlay">
                     <div className="modalContent">
-                        <span className="closeMenuIcon" onClick={onClose}>X</span>
+                        <span className="closeFormIcon" onClick={onClose}>X</span>
                         <Form className="form" actionType={actionType} userProducts={userProducts} userDataId={userDataId} title={title} seletedProductIndex={seletedProductIndex} onSubmit={onFormSubmit} />
                     </div>
                 </div>

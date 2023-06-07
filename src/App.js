@@ -5,6 +5,7 @@ import HelloScreen from "./pages/HelloScreen";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
+import DishOverview from "./pages/DishOverview";
 import Protected from "./Protected";
 
 const App = () => {
@@ -39,6 +40,13 @@ const App = () => {
             element={
               <Protected isLoggedIn={isLoggedIn}>
                 <Products />
+              </Protected>
+            }
+          />
+          <Route path='/generateDish'
+            element={
+              <Protected isLoggedIn={isLoggedIn}>
+                <DishOverview />
               </Protected>
             }
           />

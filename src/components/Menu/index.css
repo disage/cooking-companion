@@ -54,6 +54,7 @@
 .logoutBtn {
     cursor: pointer;
 }
+
 .logoutBtn:hover {
     text-decoration: underline;
 }
@@ -63,5 +64,11 @@
     display: flex;
     font-size: 26px;
     justify-content: flex-end;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
+}
+
+@media (min-height: 900px) {
+    .closeMenuIcon {
+        margin-bottom: 100px;
+    }
 }

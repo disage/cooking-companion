@@ -24,6 +24,7 @@ const Toolbar = ({ options, onAdd, onClear }) => {
             }
             {options.includes('add') && <div className="toolbarItem toolbarAction" onClick={onAdd}>Add</div>}
             {options.includes('clear') && <div className="toolbarItem toolbarAction" onClick={onClear}>Clear All</div>}
+            {options.includes('share') && <div className="toolbarItem toolbarAction shareAction">Share</div>}
         </div>
     );
 }
