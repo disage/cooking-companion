@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -11,11 +11,15 @@ import './index.css';
 import Button from '../../components/Button';
 import { auth } from "../../firebase";
 
-const Login = () => {
+const Login = ({ isLoggedIn }) => {
     const navigate = useNavigate();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+
+    useEffect(() => {
+        isLoggedIn && navigate('/home')
+    }, [navigate, isLoggedIn]);
 
     const handleNameChange = (e) => {
         setName(e.target.value);
