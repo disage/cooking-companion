@@ -27,6 +27,11 @@ const Home = () => {
     const [userDataId, setUserDataId] = useState('');
     const [userProducts, setUserProducts] = useState(undefined);
     const [suggesedDish, setSuggesedDish] = useState(undefined);
+    const [productsNames, setProductsNames] = useState('');
+    const [personsAmount, setPersonsAmount] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const prompt = `write 1 dish wich i can cook on ${mealTime} for ${personsAmount} person from this products - ${productsNames}. Write answer in json like {name: 'Avocado Toast', ingredients:'Bread, Avocado ...', instructions: 'Take avocado and bread...'}. And use maximum 3700 characters. `
 
     const handleSetSuggesedDish = (value) => {
         if (value) setSuggesedDish(value);
@@ -37,16 +42,29 @@ const Home = () => {
     const handleSetUserDataId = (value) => {
         setUserDataId(value);
     };
+    const handlePersonsAmount = (value) => {
+        setPersonsAmount(value);
+    };
     const redirectToSuggesedDish = () => {
-        navigate('/generateDish', { state: {generatedDish: suggesedDish} });
-    }
-    const regenerateSuggesedDish = () => {
-        console.log('regenerateSuggesedDish');
+        navigate('/generateDish', { state: { generatedDish: suggesedDish } });
     }
     const showNotification = () => {
         if (notificationRef.current) {
             notificationRef.current.handlerShowNotification();
         }
+    }
+    const regenerateSuggesedDish = async () => {
+        const chatMessage = prompt + `But not a ${suggesedDish?.name}`;
+        setIsLoading(true);
+        await generateChatMessage(chatMessage)
+            .then((response) => {
+                const suggesedDishObject = JSON.parse(response);
+                handleSetSuggesedDish(suggesedDishObject);
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     useEffect(() => {
@@ -58,13 +76,15 @@ const Home = () => {
                     handleSetUserProducts(querySnapshot.docs[0].data())
                     const productNames = querySnapshot.docs[0].data().products ? querySnapshot.docs[0].data().products
                         .map(product => `${product.name} ${product.amount} ${product.type}`)
-                        .join(', ') : [];
-                    const prompt = `write 1 dish wich i can cook on ${mealTime} for 2 person from this products - ${productNames}. Write answer in json like {name: 'Avocado Toast', ingredients:'Bread, Avocado ...', instructions: 'Take avocado and bread...'}. And use maximum 3700 characters`
+                        .join(', ') : '';
+                    setProductsNames(productNames)
                     const fetchChatGPTAnswer = async () => {
+                        setIsLoading(true)
                         await generateChatMessage(prompt)
                             .then((response) => {
                                 const suggesedDishObject = JSON.parse(response);
                                 handleSetSuggesedDish(suggesedDishObject)
+                                setIsLoading(false)
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
@@ -75,16 +95,16 @@ const Home = () => {
             });
             return () => unsub();
         }
-    }, [mealTime]);
+    }, [prompt]);
 
     return (
         <div className="home page">
             <Navbar />
-            <Toolbar options={['time', 'type', 'persons']} />
+            <Toolbar options={['time', 'type', 'persons']} getPersonsAmount={handlePersonsAmount} />
             <Notification ref={notificationRef} message="Product Added!" />
             <h4>We suggest you cook:</h4>
             {
-                typeof suggesedDish !== 'undefined'
+                (!isLoading && typeof suggesedDish !== 'undefined')
                     ?
                     <div className="suggesedDish">
                         <h3>{suggesedDish.name}</h3>

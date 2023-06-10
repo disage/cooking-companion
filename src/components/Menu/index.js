@@ -13,12 +13,10 @@ const Menu = ({ isOpen, onClose }) => {
         { id: 1, title: 'Home', link: '/home' },
         { id: 2, title: 'My Products', link: '/products' },
         { id: 3, title: 'Cook custom dish', link: '/generateCustomDish' },
-        { id: 4, title: 'Cook dish from my products', link: '/generateDish' },
     ];
 
     const logout = () => {
         signOut(auth).then(() => {
-            localStorage.removeItem('idToken');
             localStorage.removeItem('username');
             localStorage.removeItem('uid')
             navigate('/');
