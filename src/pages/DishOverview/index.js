@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-import './index.css';
-import Navbar from "../../components/Navbar"
-import Toolbar from "../../components/Toolbar"
+import './index.css'
+import Navbar from '../../components/Navbar'
+import Toolbar from '../../components/Toolbar'
 
 const DishOverview = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const formatedInstructuins = location.state?.generatedDish?.instructions?.split('\n');
+  const location = useLocation()
+  const navigate = useNavigate()
+  const formatedInstructuins = location.state?.generatedDish?.instructions?.split('\n')
 
-    useEffect(() => {
-        if (!location.state?.generatedDish) navigate('/home');
-    }, [location.state?.generatedDish, navigate]);
+  useEffect(() => {
+    if (!location.state?.generatedDish) navigate('/home')
+  }, [location.state?.generatedDish, navigate])
 
-    return (
+  return (
         <div className='dishOverview page'>
             <Navbar />
             <Toolbar options={['time', 'type', 'share']} />
@@ -33,6 +33,6 @@ const DishOverview = () => {
                 </div>
             }
         </div>
-    );
-};
-export default DishOverview;
+  )
+}
+export default DishOverview

@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
 import './index.css'
 import Form from '../Form'
 
-const FormModal = ({ actionType, isOpen, onClose, onFormSubmit, seletedProductIndex, title, userDataId, userProducts}) => {
-    return (
+const FormModal = ({ actionType, isOpen, onClose, onFormSubmit, seletedProductIndex, title, userDataId, userProducts }) => {
+  return (
         <>
             {isOpen && (
                 <div className="modalOverlay">
@@ -15,7 +15,7 @@ const FormModal = ({ actionType, isOpen, onClose, onFormSubmit, seletedProductIn
                 </div>
             )}
         </>
-    );
-};
+  )
+}
 
-export default FormModal;
+export default FormModal

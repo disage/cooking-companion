@@ -1,28 +1,28 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth'
 
-import { auth } from './firebase';
-import DishOverview from "./pages/DishOverview";
-import HelloScreen from "./pages/HelloScreen";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Products from "./pages/Products";
-import Protected from "./Protected";
-import Registration from "./pages/Registration";
+import { auth } from './firebase'
+import DishOverview from './pages/DishOverview'
+import HelloScreen from './pages/HelloScreen'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Products from './pages/Products'
+import Protected from './Protected'
+import Registration from './pages/Registration'
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
+      setUser(user)
+    })
     return () => {
-      unsubscribe();
-    };
-  }, []);
+      unsubscribe()
+    }
+  }, [])
 
   return (
     <BrowserRouter>
@@ -55,6 +55,6 @@ const App = () => {
         </Routes>
       </div>
     </BrowserRouter>
-  );
+  )
 }
-export default App;
+export default App
