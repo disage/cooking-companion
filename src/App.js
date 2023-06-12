@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
 import Protected from "./Protected";
+import Registration from "./pages/Registration";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -29,6 +30,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<HelloScreen isLoggedIn={!!user} />} />
           <Route path='/login' element={<Login isLoggedIn={!!user} />} />
+          <Route path='/registration' element={<Registration isLoggedIn={!!user} />} />
           <Route path='/home'
             element={
               <Protected isLoggedIn={!!user}>

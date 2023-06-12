@@ -5,14 +5,17 @@
     justify-content: space-between;
     background-color: #F8F4ED;
 }
+
 .loginTitle {
     padding: 100px 0;
     text-align: center;
     background-color: #FFFFFF;
 }
+
 .loginTitle p {
     font-size: 22px;
 }
+
 .loginFormWrapper {
     background: #F8F4ED;
     border-radius: 50px 50px 0 0;
@@ -25,10 +28,12 @@
     margin-bottom: auto;
 
 }
+
 .loginForm {
     width: 300px;
     margin: 0 auto;
 }
+
 .loginFormField {
     display: flex;
     flex-direction: column;
@@ -36,10 +41,21 @@
     font-size: 20px;
     margin-bottom: 20px;
 }
+
 .loginActions {
     display: flex;
-    justify-content: space-between;
 }
+
+.loginForm .solidBtn {
+    margin-left: auto;
+}
+
 .googleIcon {
     cursor: pointer;
+}
+
+.loginForm a {
+    margin-top: 30px;
+    display: block;
+    text-align: center;
 }

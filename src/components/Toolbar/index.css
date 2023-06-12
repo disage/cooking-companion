@@ -58,3 +58,13 @@
 li .personIcon {
     margin-right: 0;
 }
+
+@media (min-width: 450px) {
+    .toolbar {
+        justify-content: start;
+    }
+
+    .toolbarItem {
+        margin-right: 20px;
+    }
+}

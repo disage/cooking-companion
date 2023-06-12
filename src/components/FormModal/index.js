@@ -3,7 +3,7 @@ import React from 'react';
 import './index.css'
 import Form from '../Form'
 
-const FormModal = ({ actionType, isOpen, onClose, onFormSubmit, seletedProductIndex, title, userDataId, userProducts }) => {
+const FormModal = ({ actionType, isOpen, onClose, onFormSubmit, seletedProductIndex, title, userDataId, userProducts}) => {
     return (
         <>
             {isOpen && (

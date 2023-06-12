@@ -3,8 +3,10 @@ import './index.css'
 
 const Notification = forwardRef((props, ref) => {
   const [showNotification, setShowNotification] = useState(false);
+  const [message, setMessage] = useState('');
 
-  const handlerShowNotification = () => {
+  const handlerShowNotification = (message) => {
+    setMessage(message)
     setShowNotification(true);
     setTimeout(() => {
       setShowNotification(false);
@@ -19,7 +21,7 @@ const Notification = forwardRef((props, ref) => {
     <>
       {showNotification && (
         <div className={`notification ${showNotification && 'active'}`}>
-          <p>{props.message}</p>
+          <p>{message}</p>
         </div>
       )}
     </>

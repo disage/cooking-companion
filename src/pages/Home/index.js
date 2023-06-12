@@ -23,7 +23,6 @@ const Home = () => {
     const navigate = useNavigate();
     const { mealTime } = useTime();
 
-
     const [userDataId, setUserDataId] = useState('');
     const [userProducts, setUserProducts] = useState(undefined);
     const [suggesedDish, setSuggesedDish] = useState(undefined);
@@ -50,7 +49,7 @@ const Home = () => {
     }
     const showNotification = () => {
         if (notificationRef.current) {
-            notificationRef.current.handlerShowNotification();
+            notificationRef.current.handlerShowNotification('Product Added!');
         }
     }
     const regenerateSuggesedDish = async () => {
@@ -101,7 +100,7 @@ const Home = () => {
         <div className="home page">
             <Navbar />
             <Toolbar options={['time', 'type', 'persons']} getPersonsAmount={handlePersonsAmount} />
-            <Notification ref={notificationRef} message="Product Added!" />
+            <Notification ref={notificationRef} />
             <h4>We suggest you cook:</h4>
             {
                 (!isLoading && typeof suggesedDish !== 'undefined')
@@ -118,7 +117,7 @@ const Home = () => {
                         </div>
                     </div> :
                     <div className="suggesedDish">
-                        <h4>We are generate your dish ...</h4>
+                        <h4>{!userProducts ? 'You should add some products' : 'We are generate your dish ...'}</h4>
                     </div>
             }
             <h4>Bought new products?</h4>

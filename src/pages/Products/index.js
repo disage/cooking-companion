@@ -32,14 +32,13 @@ const Products = () => {
         setIsModalOpen(false);
     };
     const addProduct = () => {
-        setFormActionType('add')
-        openModal()
+        setFormActionType('add');
+        openModal();
     }
     const removeAllProducts = async () => {
         try {
             await updateDoc(doc(db, collectionName, userDataId), { products: [] });
-            setFormActionType('delete')
-            showNotification()
+            showNotification('All products deleted !');
         } catch (error) {
             console.error(error);
         }
@@ -48,30 +47,30 @@ const Products = () => {
         try {
             const products = userProducts.products.filter((item, index) => index !== value);
             await updateDoc(doc(db, collectionName, userDataId), { products });
-            setFormActionType('delete')
-            showNotification()
+            showNotification('Product deleted !');
         } catch (error) {
             console.error(error);
         }
     }
     const editProduct = (index) => {
-        setSelectedProductIndex(index)
-        setFormActionType('edit')
+        setSelectedProductIndex(index);
+        setFormActionType('edit');
         openModal()
     }
-    const showNotification = () => {
-        if (formActionType === 'edit') closeModal()
+    const showNotification = (message) => {
         if (notificationRef.current) {
-            notificationRef.current.handlerShowNotification();
+            const notificationMessage = message ? message : formActionType === 'add' ? 'Product added !' : 'Product edited';
+            notificationRef.current.handlerShowNotification(notificationMessage);
         }
+        if (formActionType === 'edit') closeModal();
     }
 
     useEffect(() => {
         const q = query(collection(db, collectionName), where('uid', '==', localStorage.uid));
         const unsub = onSnapshot(q, (querySnapshot) => {
             if (querySnapshot.docs[0]) {
-                setUserProducts(querySnapshot.docs[0].data())
-                setUserDataId(querySnapshot.docs[0].id)
+                setUserProducts(querySnapshot.docs[0].data());
+                setUserDataId(querySnapshot.docs[0].id);
             }
         });
         return () => unsub();
@@ -81,7 +80,7 @@ const Products = () => {
         <div className='page'>
             <Navbar />
             <Toolbar options={['add', 'clear']} onAdd={addProduct} onClear={removeAllProducts} />
-            <Notification ref={notificationRef} message={formActionType === 'add' ? 'Product added !' : formActionType === 'delete' ? 'Product deleted !' : 'Product edited !'} />
+            <Notification ref={notificationRef} />
             <h4>My Products:</h4>
             <ul className="productsList">
                 {userProducts.products && userProducts.products.map((item, index) => (
@@ -101,7 +100,7 @@ const Products = () => {
                     </li>
                 ))}
             </ul>
-            <FormModal isOpen={isModalOpen} onClose={closeModal} userDataId={userDataId} userProducts={userProducts} notificationRef={notificationRef} actionType={formActionType} seletedProductIndex={seletedProductIndex} onFormSubmit={showNotification} />
+            <FormModal isOpen={isModalOpen} userDataId={userDataId} userProducts={userProducts} notificationRef={notificationRef} actionType={formActionType} seletedProductIndex={seletedProductIndex} onFormSubmit={showNotification} onClose={closeModal} />
         </div>
     );
 };

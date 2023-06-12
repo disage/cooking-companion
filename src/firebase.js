@@ -1,5 +1,5 @@
 import { initializeApp, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -12,10 +12,30 @@ const firebaseConfig = {
   measurementId: "G-2DZP0THKFS"
 };
 
+const createUserWithEmail = async (email, password) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const signInWithEmail = async (email, password) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const collectionName = 'products'
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(getApp());
 const db = getFirestore(app);
 const products = collection(db, collectionName);
 
-export { auth, db, products, collectionName };
+export { auth, db, products, collectionName, createUserWithEmail, signInWithEmail };
