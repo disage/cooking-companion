@@ -30,7 +30,7 @@ const Home = () => {
   const [personsAmount, setPersonsAmount] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
 
-  const prompt = `write 1 dish wich i can cook on ${mealTime} for ${personsAmount} person from this products - ${productsNames}. Write answer in json like {name: 'Avocado Toast', ingredients:'Bread, Avocado ...', instructions: 'Take avocado and bread...'}. And use maximum 3700 characters. `
+  const prompt = `write 1 dish wich i can cook on ${mealTime} for ${personsAmount} person, use only this products - ${productsNames}. Write answer in json like {name: 'Avocado Toast', ingredients:'Bread, Avocado ...', instructions: 'Take avocado and bread...'}. And use maximum 3700 characters. `
 
   const handleSetSuggesedDish = (value) => {
     if (value) setSuggesedDish(value)
@@ -81,49 +81,53 @@ const Home = () => {
           setProductsNames(productNames)
           const fetchChatGPTAnswer = async () => {
             setIsLoading(true)
-            await generateChatMessage(prompt)
-              .then((response) => {
-                const suggesedDishObject = JSON.parse(response)
-                handleSetSuggesedDish(suggesedDishObject)
-                setIsLoading(false)
-              })
-              .catch((error) => {
-                console.error('Error:', error)
-              })
+            const callGenerateChatMessage  = async () => {
+                await generateChatMessage(prompt)
+                .then((response) => {
+                    if(response === null) {
+                        setTimeout(callGenerateChatMessage, 8000);
+                    } else {
+                        const suggesedDishObject = JSON.parse(response)
+                        handleSetSuggesedDish(suggesedDishObject)
+                        setIsLoading(false)
+                    }
+                })
+            }
+            callGenerateChatMessage()
           }
-          fetchChatGPTAnswer()
+          if (productsNames) fetchChatGPTAnswer()
         }
       })
       return () => unsub()
     }
-  }, [prompt])
+  }, [prompt, productsNames])
 
   return (
-        <div className="home page">
-            <Navbar />
-            <Toolbar options={['time', 'type', 'persons']} getPersonsAmount={handlePersonsAmount} />
-            <Notification ref={notificationRef} />
-            <h4>We suggest you cook:</h4>
-            {
-                (!isLoading && typeof suggesedDish !== 'undefined')
+      <div className="home page">
+          <Navbar />
+          <Toolbar options={['time', 'type', 'persons']} getPersonsAmount={handlePersonsAmount} />
+          <Notification ref={notificationRef} />
+          <h4>We suggest you cook:</h4>
+          {
+              (!isLoading && typeof suggesedDish !== 'undefined')
                   ? <div className="suggesedDish">
-                        <h3>{suggesedDish.name}</h3>
-                        <span>Ingredients:</span>
-                        <p className="suggesedDishDescription">
-                            {suggesedDish.ingredients}
-                        </p>
-                        <div className="actions">
-                            <Button type="button" text="Regenerate" btnStyle="secondary" onButtonClick={regenerateSuggesedDish} />
-                            <Button type="button" text="Read More" onButtonClick={redirectToSuggesedDish} />
-                        </div>
-                    </div>
+                      <h3>{suggesedDish.name}</h3>
+                      <span>Ingredients:</span>
+                      <p className="suggesedDishDescription">
+                          {suggesedDish.ingredients}
+                      </p>
+                      <div className="actions">
+                          <Button type="button" text="Regenerate" btnStyle="secondary" onButtonClick={regenerateSuggesedDish} />
+                          <Button type="button" text="Read More" onButtonClick={redirectToSuggesedDish} />
+                      </div>
+                  </div>
                   : <div className="suggesedDish">
-                        <h4>{!userProducts ? 'You should add some products' : 'We are generate your dish ...'}</h4>
-                    </div>
-            }
-            <h4>Bought new products?</h4>
-            <Form actionType="add" userProducts={userProducts} userDataId={userDataId} title="Add product" onSubmit={showNotification} />
-        </div>
+                      <h4>{!userProducts ? 'You should add some products' : 'We are generate your dish ...'}</h4>
+                  </div>
+          }
+          <h4>Bought new products?</h4>
+          <Form actionType="add" userProducts={userProducts} userDataId={userDataId} title="Add product" onSubmit={showNotification} />
+      </div>
   )
 }
 export default Home
