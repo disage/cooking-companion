@@ -28,24 +28,27 @@ const App = () => {
     <BrowserRouter>
       <div>
         <Routes>
-          <Route path='/' element={<HelloScreen isLoggedIn={!!user} />} />
-          <Route path='/login' element={<Login isLoggedIn={!!user} />} />
-          <Route path='/registration' element={<Registration isLoggedIn={!!user} />} />
-          <Route path='/home'
+          <Route path="/" element={<HelloScreen isLoggedIn={!!user} />} />
+          <Route path="/login" element={<Login isLoggedIn={!!user} />} />
+          <Route path="/registration" element={<Registration isLoggedIn={!!user} />} />
+          <Route
+            path="/home"
             element={
               <Protected isLoggedIn={!!user}>
                 <Home />
               </Protected>
             }
           />
-          <Route path='/products'
+          <Route
+            path="/products"
             element={
               <Protected isLoggedIn={!!user}>
                 <Products />
               </Protected>
             }
           />
-          <Route path='/generateDish'
+          <Route
+            path="/generateDish"
             element={
               <Protected isLoggedIn={!!user}>
                 <DishOverview />

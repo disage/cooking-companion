@@ -4,7 +4,9 @@ import './index.css'
 
 const Button = ({ btnStyle, onButtonClick, text, type }) => {
   return (
-        <button className={btnStyle + 'Btn'} type={type} onClick={onButtonClick}>{text}</button>
+    <button className={btnStyle + 'Btn'} type={type} onClick={onButtonClick}>
+      {text}
+    </button>
   )
 }
 

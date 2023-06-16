@@ -6,9 +6,7 @@ const endpoint = 'https://api.openai.com/v1/chat/completions'
 export const generateChatMessage = async (prompt) => {
   const requestBody = {
     model: 'gpt-3.5-turbo',
-    messages: [
-      { role: 'user', content: prompt }
-    ],
+    messages: [{ role: 'user', content: prompt }],
     max_tokens: 3800
     // temperature: 0.7,  // Control the randomness of the generated response
     // n: 1,  // Generate a single response

@@ -1,11 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut
-} from 'firebase/auth'
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
 
 import './index.css'
 import { auth, signInWithEmail } from '../../firebase'
@@ -64,30 +60,30 @@ const Login = ({ isLoggedIn }) => {
   }
 
   return (
-        <div className='loginPage'>
-            <Notification ref={notificationRef} />
-            <div className='loginTitle'>
-                <h2>Login</h2>
-                <p>Get cooking and enjoy the flavors!</p>
-            </div>
-            <div className='loginFormWrapper'>
-                <form className='loginForm' onSubmit={handleSignIn}>
-                    <label className='loginFormField'>
-                        Email:
-                        <input type="email" value={email} onChange={handleEmailChange} />
-                    </label>
-                    <label className='loginFormField'>
-                        Password:
-                        <input type="password" value={password} onChange={handlePasswordChange} />
-                    </label>
-                    <div className='loginActions'>
-                        <img className="googleIcon" src={googleIcon} alt="Google Icon" onClick={signInWithGoogle} />
-                        <Button type="submit" text="Login" />
-                    </div>
-                    <Link to="/registration">New User ? Sign Up now !</Link>
-                </form>
-            </div>
-        </div>
+    <div className="loginPage">
+      <Notification ref={notificationRef} />
+      <div className="loginTitle">
+        <h2>Login</h2>
+        <p>Get cooking and enjoy the flavors!</p>
+      </div>
+      <div className="loginFormWrapper">
+        <form className="loginForm" onSubmit={handleSignIn}>
+          <label className="loginFormField">
+            Email:
+            <input type="email" value={email} onChange={handleEmailChange} />
+          </label>
+          <label className="loginFormField">
+            Password:
+            <input type="password" value={password} onChange={handlePasswordChange} />
+          </label>
+          <div className="loginActions">
+            <img className="googleIcon" src={googleIcon} alt="Google Icon" onClick={signInWithGoogle} />
+            <Button type="submit" text="Login" />
+          </div>
+          <Link to="/registration">New User ? Sign Up now !</Link>
+        </form>
+      </div>
+    </div>
   )
 }
 export default Login

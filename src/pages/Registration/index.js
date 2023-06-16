@@ -33,34 +33,37 @@ const Registration = ({ isLoggedIn }) => {
       if (error.message === 'Firebase: Error (auth/email-already-in-use).' && notificationRef.current) {
         notificationRef.current.handlerShowNotification('You already have an account !')
       }
-      if (error.message === 'Firebase: Password should be at least 6 characters (auth/weak-password).' && notificationRef.current) {
+      if (
+        error.message === 'Firebase: Password should be at least 6 characters (auth/weak-password).' &&
+        notificationRef.current
+      ) {
         notificationRef.current.handlerShowNotification('Password should be at least 6 characters !')
       }
     }
   }
 
   return (
-        <div className='loginPage'>
-            <Notification ref={notificationRef} />
-            <div className='loginTitle'>
-                <h2>Sign Up</h2>
-                <p>Get cooking and enjoy the flavors!</p>
-            </div>
-            <div className='loginFormWrapper'>
-                <form className='loginForm' onSubmit={handleSignUp}>
-                    <label className='loginFormField'>
-                        Email:
-                        <input type="email" value={email} onChange={handleEmailChange} />
-                    </label>
-                    <label className='loginFormField'>
-                        Password:
-                        <input type="password" value={password} onChange={handlePasswordChange} />
-                    </label>
-                    <Button type="submit" text="Sign Up" />
-                    <Link to="/login">Have an account ? Sign In now !</Link>
-                </form>
-            </div>
-        </div>
+    <div className="loginPage">
+      <Notification ref={notificationRef} />
+      <div className="loginTitle">
+        <h2>Sign Up</h2>
+        <p>Get cooking and enjoy the flavors!</p>
+      </div>
+      <div className="loginFormWrapper">
+        <form className="loginForm" onSubmit={handleSignUp}>
+          <label className="loginFormField">
+            Email:
+            <input type="email" value={email} onChange={handleEmailChange} />
+          </label>
+          <label className="loginFormField">
+            Password:
+            <input type="password" value={password} onChange={handlePasswordChange} />
+          </label>
+          <Button type="submit" text="Sign Up" />
+          <Link to="/login">Have an account ? Sign In now !</Link>
+        </form>
+      </div>
+    </div>
   )
 }
 export default Registration

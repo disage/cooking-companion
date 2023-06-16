@@ -3,18 +3,37 @@ import React from 'react'
 import './index.css'
 import Form from '../Form'
 
-const FormModal = ({ actionType, isOpen, onClose, onFormSubmit, seletedProductIndex, title, userDataId, userProducts }) => {
+const FormModal = ({
+  actionType,
+  isOpen,
+  onClose,
+  onFormSubmit,
+  seletedProductIndex,
+  title,
+  userDataId,
+  userProducts
+}) => {
   return (
-        <>
-            {isOpen && (
-                <div className="modalOverlay">
-                    <div className="modalContent">
-                        <span className="closeFormIcon" onClick={onClose}>X</span>
-                        <Form className="form" actionType={actionType} userProducts={userProducts} userDataId={userDataId} title={title} seletedProductIndex={seletedProductIndex} onSubmit={onFormSubmit} />
-                    </div>
-                </div>
-            )}
-        </>
+    <>
+      {isOpen && (
+        <div className="modalOverlay">
+          <div className="modalContent">
+            <span className="closeFormIcon" onClick={onClose}>
+              X
+            </span>
+            <Form
+              className="form"
+              actionType={actionType}
+              userProducts={userProducts}
+              userDataId={userDataId}
+              title={title}
+              seletedProductIndex={seletedProductIndex}
+              onSubmit={onFormSubmit}
+            />
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 

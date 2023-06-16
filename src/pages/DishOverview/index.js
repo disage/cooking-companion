@@ -15,24 +15,24 @@ const DishOverview = () => {
   }, [location.state?.generatedDish, navigate])
 
   return (
-        <div className='dishOverview page'>
-            <Navbar />
-            <Toolbar options={['time', 'type', 'share']} />
-            {location.state?.generatedDish &&
-                <div className="dishDescription">
-                    <h3>{location.state?.generatedDish?.name}</h3>
-                    <b>Ingredients:</b>
-                    <p className="suggesedDishDescription">
-                        {location.state?.generatedDish?.ingredients}
-                    </p>
-                    <b>Instrusctions:</b>
-                    {formatedInstructuins && formatedInstructuins.map((step, index) => (
-                        <p key={index} className="suggesedDishDescription">{step}
-                        </p>
-                    ))}
-                </div>
-            }
+    <div className="dishOverview page">
+      <Navbar />
+      <Toolbar options={['time', 'type', 'share']} />
+      {location.state?.generatedDish && (
+        <div className="dishDescription">
+          <h3>{location.state?.generatedDish?.name}</h3>
+          <b>Ingredients:</b>
+          <p className="suggesedDishDescription">{location.state?.generatedDish?.ingredients}</p>
+          <b>Instrusctions:</b>
+          {formatedInstructuins &&
+            formatedInstructuins.map((step, index) => (
+              <p key={index} className="suggesedDishDescription">
+                {step}
+              </p>
+            ))}
         </div>
+      )}
+    </div>
   )
 }
 export default DishOverview

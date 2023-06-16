@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import {
-  addDoc,
-  collection,
-  doc,
-  updateDoc
-} from 'firebase/firestore'
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore'
 
 import './index.css'
 import { db, collectionName } from '../../firebase'
@@ -36,19 +31,24 @@ const Form = ({ actionType, onSubmit, seletedProductIndex, userDataId, userProdu
           if (!userProducts) {
             await addDoc(collection(db, collectionName), {
               uid: localStorage.uid,
-              products: [{
-                name: productName,
-                amount: productAmount,
-                type: productType
-              }]
+              products: [
+                {
+                  name: productName,
+                  amount: productAmount,
+                  type: productType
+                }
+              ]
             })
           } else {
             await updateDoc(doc(db, collectionName, userDataId), {
-              products: [...userProducts.products, {
-                name: productName,
-                amount: productAmount,
-                type: productType
-              }]
+              products: [
+                ...userProducts.products,
+                {
+                  name: productName,
+                  amount: productAmount,
+                  type: productType
+                }
+              ]
             })
           }
         } else {
@@ -79,33 +79,39 @@ const Form = ({ actionType, onSubmit, seletedProductIndex, userDataId, userProdu
   }, [actionType, seletedProductIndex, userProducts?.products])
 
   return (
-        <form className='form' onSubmit={onFormSubmit}>
-            <h3>{actionType === 'add' ? 'Add Product' : `Edit ${productName}`}</h3>
-            {actionType === 'add' &&
-                <label className='formField'>
-                    Name:
-                    <input className="productNameInput" type="text" value={productName} onChange={handleProductNameChange} required />
-                </label>
-            }
-            <label className='formField'>
-                Amount:
-                <div className="formGroup">
-                    <input type="number" value={productAmount} onChange={handleProductAmountChange} required />
-                    <div className="singleSelect" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                        {productType}
-                        {isDropdownOpen && (
-                            <ul className="dropdown">
-                                <li onClick={() => handleSelectProductType('Kg')}>Kg</li>
-                                <li onClick={() => handleSelectProductType('L')}>L</li>
-                                <li onClick={() => handleSelectProductType('Pieces')}>Pieces</li>
-                            </ul>
-                        )}
-                    </div>
-                </div>
-            </label>
-            <Button type="submit" text={actionType === 'add' ? 'Add' : 'Save'} />
-            {window.location.pathname === '/home' && <Link to="/products">See my products</Link>}
-        </form>
+    <form className="form" onSubmit={onFormSubmit}>
+      <h3>{actionType === 'add' ? 'Add Product' : `Edit ${productName}`}</h3>
+      {actionType === 'add' && (
+        <label className="formField">
+          Name:
+          <input
+            className="productNameInput"
+            type="text"
+            value={productName}
+            onChange={handleProductNameChange}
+            required
+          />
+        </label>
+      )}
+      <label className="formField">
+        Amount:
+        <div className="formGroup">
+          <input type="number" value={productAmount} onChange={handleProductAmountChange} required />
+          <div className="singleSelect" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+            {productType}
+            {isDropdownOpen && (
+              <ul className="dropdown">
+                <li onClick={() => handleSelectProductType('Kg')}>Kg</li>
+                <li onClick={() => handleSelectProductType('L')}>L</li>
+                <li onClick={() => handleSelectProductType('Pieces')}>Pieces</li>
+              </ul>
+            )}
+          </div>
+        </div>
+      </label>
+      <Button type="submit" text={actionType === 'add' ? 'Add' : 'Save'} />
+      {window.location.pathname === '/home' && <Link to="/products">See my products</Link>}
+    </form>
   )
 }
 
