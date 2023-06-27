@@ -1,9 +1,21 @@
-.button {
+.solidBtn {
     background: #E68966;
     border-radius: 8px;
     border: none;
     color: #FFFFFF;
+    cursor: pointer;
     display: flex;
     font-size: 18px;
     padding: 10px 25px;
+}
+.secondaryBtn {
+    background: transparent;
+    border-radius: 8px;
+    border: none;
+    color: #535353;
+    cursor: pointer;
+    display: flex;
+    font-size: 18px;
+    padding: 10px 0;
+    text-decoration: underline;
 }

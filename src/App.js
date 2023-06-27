@@ -1,40 +1,63 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import HelloScreen from "./pages/HelloScreen";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Protected from "./Protected";
+import { onAuthStateChanged } from 'firebase/auth'
+
+import { auth } from './firebase'
+import DishOverview from './pages/DishOverview'
+import HelloScreen from './pages/HelloScreen'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Products from './pages/Products'
+import Protected from './Protected'
+import Registration from './pages/Registration'
 
 const App = () => {
-  const [isLoggedIn, setisLoggedIn] = useState(localStorage.getItem('uid'));
+  const [user, setUser] = useState(null)
+
   useEffect(() => {
-    const handleStorageChange = (event) => {
-      if (event.key === 'uid') {
-        setisLoggedIn(!!event.newValue);
-      }
-    };
-    window.addEventListener('storage', handleStorageChange);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user)
+    })
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
+      unsubscribe()
+    }
+  }, [])
+
   return (
     <BrowserRouter>
       <div>
         <Routes>
-          <Route path='/' element={<HelloScreen />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/home'
+          <Route path="/" element={<HelloScreen isLoggedIn={!!user} />} />
+          <Route path="/login" element={<Login isLoggedIn={!!user} />} />
+          <Route path="/registration" element={<Registration isLoggedIn={!!user} />} />
+          <Route
+            path="/home"
             element={
-              <Protected isLoggedIn={isLoggedIn}>
+              <Protected isLoggedIn={!!user}>
                 <Home />
+              </Protected>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <Protected isLoggedIn={!!user}>
+                <Products />
+              </Protected>
+            }
+          />
+          <Route
+            path="/generateDish"
+            element={
+              <Protected isLoggedIn={!!user}>
+                <DishOverview />
               </Protected>
             }
           />
         </Routes>
       </div>
     </BrowserRouter>
-  );
+  )
 }
-export default App;
+export default App

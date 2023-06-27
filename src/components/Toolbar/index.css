@@ -1,0 +1,70 @@
+.toolbar {
+    display: flex;
+    margin-top: 30px;
+}
+
+.toolbarAction {
+    cursor: pointer;
+}
+
+.toolbarItem {
+    align-items: center;
+    background: #F8F4ED;
+    border-radius: 10px;
+    display: flex;
+    font-size: 20px;
+    padding: 20px;
+}
+
+.shareAction {
+    background: #E68966;
+    color: #FFFFFF;
+}
+
+.personIcon {
+    margin-left: 5px;
+    margin-right: 20px;
+}
+
+.flexSpaceBetween {
+    justify-content: space-between;
+}
+
+.flexStart {
+    justify-content: start;
+}
+
+.flexStart .toolbarItem {
+    margin-right: 20px;
+}
+
+.toolbarDropdown {
+    position: relative;
+}
+
+.toolbarDropdown ul {
+    position: absolute;
+    padding-left: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.toolbarDropdown li {
+    margin-top: 10px;
+    justify-content: center;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+li .personIcon {
+    margin-right: 0;
+}
+
+@media (min-width: 450px) {
+    .toolbar {
+        justify-content: start;
+    }
+
+    .toolbarItem {
+        margin-right: 20px;
+    }
+}

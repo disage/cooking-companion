@@ -1,10 +1,17 @@
-import React from "react";
+import React from 'react'
 
-import './index.css';
+import './index.css'
 
-const Button = ({text, type}) => {
-    return (
-        <button className="button" type={type}>{text}</button>
-    )
+const Button = ({ btnStyle, onButtonClick, text, type }) => {
+  return (
+    <button className={btnStyle + 'Btn'} type={type} onClick={onButtonClick}>
+      {text}
+    </button>
+  )
 }
+
+Button.defaultProps = {
+  btnStyle: 'solid'
+}
+
 export default Button

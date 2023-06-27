@@ -1,0 +1,23 @@
+{
+    "extends": [
+        "react-app",
+        "react-app/jest",
+        "plugin:prettier/recommended",
+        "prettier"
+    ],
+    "plugins": [
+      "prettier"
+    ],
+    "rules": {
+      "prefer-const": "warn",
+      "quotes": ["error", "single"],
+      "jsx-quotes": ["error", "prefer-double"],
+      "max-len": ["warn", {"code": 120}],
+      "semi": ["error", "never"],
+      "comma-dangle": ["error", "never"],
+      "import/order": ["warn", {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always-and-inside-groups"
+      }]
+    }
+}

@@ -1,0 +1,39 @@
+.suggesedDish {
+    padding: 20px;
+    background: #F8F4ED;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.home .secondaryBtn {
+    margin: auto;
+}
+
+.suggesedDish h3 {
+    margin-bottom: 20px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+}
+
+.actions .secondaryBtn {
+    margin-left: 0;
+}
+
+.actions .solidBtn {
+    margin-left: auto;
+}
+
+.suggesedDishDescription {
+    font-size: 20px;
+}
+
+.generateNewDish {
+    margin: auto;
+}
+
+.form {
+    margin-top: 20px;
+}
