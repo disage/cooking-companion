@@ -36,6 +36,9 @@ const Login = ({ isLoggedIn }) => {
       if (error.message === 'Firebase: Error (auth/user-not-found).' && notificationRef.current) {
         notificationRef.current.handlerShowNotification('Account not found !')
       }
+      if (error.message === 'Firebase: Error (auth/wrong-password).' && notificationRef.current) {
+        notificationRef.current.handlerShowNotification('Wrong password !')
+      }
     }
   }
 
